@@ -1,0 +1,21 @@
+# lars appel 2015-05-24
+
+defs="-Dmpeix -D_POSIX_SOURCE -D_SOCKET_SOURCE"
+incs="-I$PWD/mpe"
+#libs="-L$PWD/mpe -lmpe -liberty -lsocket -lsyslog"
+
+export MPEAUTOCONF=1
+#export CPPFLAGS="$defs $incs"
+#export LIBS="$libs"
+
+export LOCAL_ZIP="$defs $incs"
+
+if test "$1" = "use-O0"; then
+  sed "s,-O3,-O0,g" flags > flags.mpe && mv -f flags.mpe flags ; exit
+fi
+
+if test "$1" = "use-O3"; then
+  sed "s,-O0,-O3,g" flags > flags.mpe && mv -f flags.mpe flags ; exit
+fi
+
+make -f unix/Makefile CC=gcc CPP="gcc -E" IZ_BZIP2="none" $*

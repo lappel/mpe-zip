@@ -1,0 +1,9 @@
+build zip 3.0 on mpe
+
+ mpe/make flags
+ mpe/make use-O0 # optional
+ mpe/make generic
+
+ mpe/make prefix=$HOME/local install
+
+lars appel 2015-05-24

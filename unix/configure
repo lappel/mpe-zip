@@ -475,7 +475,7 @@ _EOF_
 $CC -o conftest conftest.c >/dev/null 2>/dev/null
 # OCRCU8 is used by all utilities if Unicode is enabled
 # OCRCTB is only used by zipcloak
-if [ $? -ne 0 ]; then
+if [ $? -ne 0 ] || [ "$(uname)" = "MPE/iX" ]; then
   echo -- no Unicode support
   OCRCU8=""
   OCRCTB="crc32_.o"
@@ -640,6 +640,10 @@ MANDIR=manl
 [ -d /usr/man/manl ]       && MANDIR=/usr/man/manl
 [ -d /usr/local/man/manl ] && MANDIR=/usr/local/man/manl
 [ -d /usr/local/man/man1 ] && MANDIR=/usr/local/man/man1
+
+# allow PREFIX override
+[ -n "$PREFIX" ] && [ "$(uname)" = "MPE/iX" ] && BINDIR=$PREFIX/bin
+[ -n "$PREFIX" ] && [ "$(uname)" = "MPE/iX" ] && MANDIR=$PREFIX/man/man1
 
 
 echo Check for OS-specific flags
